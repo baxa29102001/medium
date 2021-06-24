@@ -16,7 +16,7 @@ function Story(props) {
     dispatch(articleActions.success(data));
     const token = localStorage.getItem('token');
     if (token) {
-      tokenRequest('/api/login');
+      tokenRequest(`${server}/api/login`);
     }
   }, []);
   if (!isLogged) {

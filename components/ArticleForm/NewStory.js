@@ -2,6 +2,7 @@ import React, { Fragment, useRef, useState } from 'react';
 import mediumDraftExporter from 'medium-draft/lib/exporter';
 import mediumDraftImporter from 'medium-draft/lib/importer';
 import { convertToRaw } from 'draft-js';
+import { server } from '../../config/index';
 import axios from 'axios';
 import dynamic from 'next/dynamic';
 const Editor = dynamic(
@@ -51,7 +52,7 @@ function NewStory({ form }) {
       story: arr,
     };
 
-    const res = await axios.post('/api/articles', articleObj);
+    const res = await axios.post(`${server}/api/articles`, articleObj);
     console.log(res);
   };
 

@@ -13,7 +13,7 @@ function OneArticle(props) {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      tokenRequest('/api/login');
+      tokenRequest(`${server}/api/login`);
     }
   }, []);
   const singleArticle = props.article;

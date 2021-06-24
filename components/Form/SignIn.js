@@ -3,6 +3,7 @@ import { useAuth } from '../../utils/hooks/authApi';
 import { useSelector } from 'react-redux';
 import LoadingSpinner from '../Ui/LoadingSpinner';
 import Success from '../Ui/Success';
+import { server } from '../../config';
 
 function SignIn(props) {
   const { notify } = useSelector((state) => state);
@@ -18,7 +19,7 @@ function SignIn(props) {
       password: passwordRef.current.value,
     };
 
-    requestBackend('/api/login', obj);
+    requestBackend(`${server}/api/login`, obj);
   };
 
   if (notify && notify.status === 'Pending') {

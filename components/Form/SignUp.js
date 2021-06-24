@@ -4,6 +4,7 @@ import Success from '../Ui/Success';
 import { useSelector } from 'react-redux';
 import { useAuth } from '../../utils/hooks/authApi';
 import { storage } from '../../utils/firebase/firebase';
+import { server } from '../../config';
 
 function SignUp(props) {
   const { notify } = useSelector((state) => state);
@@ -38,7 +39,7 @@ function SignUp(props) {
               imgAuthor: res,
             };
 
-            sendRequest('/api/auth', obj);
+            sendRequest(`${server}/api/auth`, obj);
           });
       });
   };
