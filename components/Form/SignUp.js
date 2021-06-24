@@ -15,6 +15,7 @@ function SignUp(props) {
 
   const imgHandler = (e) => {
     setImage(e.target.files[0]);
+    console.log('hey');
   };
 
   const submitHandler = (e) => {
