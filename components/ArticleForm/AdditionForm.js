@@ -1,25 +1,32 @@
 import React, { useState, Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import NewStory from './NewStory';
+import LoadingSpinner from '../Ui/LoadingSpinner';
 
 function AdditionForm() {
   const auth = useSelector((state) => state.auth);
-  const { userName, imgAuthor } = auth.notify.data.user;
   const [dataForm, setDataForm] = useState({
     title: '',
     capture: '',
     duration: '',
   });
+  if (!auth.notify) {
+    return <LoadingSpinner />;
+  }
+
   const { title, capture, duration } = dataForm;
+
+  const userImg = auth.notify && auth.notify.data.user;
+  console.log(userImg);
 
   const sendForm = () => {
     const articleObj = {
       ...dataForm,
-      author: userName,
+      author: userImg.userName,
       createdAt: 'June 18',
-      imgAuthor: imgAuthor,
+      imgAuthor: userImg.imgAuthor,
     };
-    console.log(articleObj);
+
     return articleObj;
   };
 

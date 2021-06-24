@@ -1,14 +1,18 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-const isBrowser = () => typeof window !== 'undefined';
+import { authActions } from '../../stores/authReducers';
 
-function Redirect({ routes, children }) {
+function Redirect({ children }) {
+  const dispatch = useDispatch();
+  dispatch(authActions.actionDefault());
   const isLogged = useSelector((state) => state.auth.isLogged);
   const router = useRouter();
 
-  if (isBrowser() && !isLogged) {
-    router.push('/');
+  if (!isLogged) {
+    if (typeof document !== 'undefined') {
+      router.push('/');
+    }
   }
 
   return children;

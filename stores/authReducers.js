@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const obj = {
-  isLogged: false,
-  token: '',
+  token: typeof document !== 'undefined' ? localStorage.getItem('token') : '',
+  isLogged: '',
   notify: null,
 };
 
@@ -10,10 +10,17 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: obj,
   reducers: {
+    actionDefault: (state) => {
+      const local =
+        typeof document !== 'undefined' ? localStorage.getItem('token') : '';
+      state.isLogged = local;
+      const isAuthenticed = !!state.token;
+      state.isLogged = isAuthenticed;
+    },
     login: (state, action) => {
       const token = action.payload.data.token;
       localStorage.setItem('token', token);
-      state.isLogged = true;
+      state.isLogged = !!token;
       state.token = token;
       state.notify = {
         status: action.payload.status,
@@ -25,6 +32,14 @@ const authSlice = createSlice({
       localStorage.removeItem('token');
       state.isLogged = false;
       state.token = '';
+    },
+    tokenRequests: (state, action) => {
+      state.isLogged = !!state.token;
+      state.notify = {
+        status: action.payload.status,
+        data: action.payload.data,
+        error: action.payload.error,
+      };
     },
   },
 });

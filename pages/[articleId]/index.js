@@ -1,8 +1,29 @@
-import axios from 'axios';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import React, { Fragment } from 'react';
 import OneArticleLayout from '../../components/Layouts/OneArticleLayout';
+import { useLogin } from '../../utils/hooks/tokenRequest';
+import Redirect from '../../components/Form/Redirect';
+import axios from 'axios';
+
 function OneArticle(props) {
+  const { tokenRequest } = useLogin();
+  const isLogged = useSelector((state) => state.auth.isLogged);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      tokenRequest('http://localhost:3000/api/login');
+    }
+  }, []);
   const singleArticle = props.article;
+
+  if (!isLogged) {
+    return (
+      <Redirect>
+        <p className='text-4xl'>Redirect page no authorized </p>
+      </Redirect>
+    );
+  }
   return (
     <Fragment>
       <OneArticleLayout singleArticle={singleArticle} />

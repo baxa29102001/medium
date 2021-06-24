@@ -1,28 +1,33 @@
 import { Fragment, useEffect } from 'react';
 import LoggedLayout from '../components/Layouts/LoggedLayout';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { articleActions } from '../stores/articleReducer';
 import Redirect from '../components/Form/Redirect';
+import { useLogin } from '../utils/hooks/tokenRequest';
+
 import axios from 'axios';
 
 const MainPage = (props) => {
   const dispatch = useDispatch();
+  const { tokenRequest } = useLogin();
+  const isLogged = useSelector((state) => state.auth.isLogged);
   const data = props.articles.articles;
-
-  // if (typeof document !== 'undefined') {
-  //   const token = localStorage.getItem('token');
-  //   if (!token) {
-  //     return <Redirect />;
-  //   }
-  // }
-
   useEffect(() => {
-    if (!data) {
-      dispatch(articleActions.pending());
-    } else {
-      dispatch(articleActions.success(data));
+    dispatch(articleActions.success(data));
+    const token = localStorage.getItem('token');
+    if (token) {
+      tokenRequest('http://localhost:3000/api/login');
     }
-  }, [data]);
+  }, []);
+
+  if (!isLogged) {
+    return (
+      <Redirect>
+        <p className='text-4xl'>Redirect page no authorized </p>
+      </Redirect>
+    );
+  }
+
   return (
     <Fragment>
       <LoggedLayout />

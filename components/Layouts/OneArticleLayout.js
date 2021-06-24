@@ -5,7 +5,7 @@ import Nav from '../LoggedPage/Nav';
 function OneArticleLayout(props) {
   return (
     <Fragment>
-      {/* <Nav /> */}
+      <Nav />
       <OneArticle singleArticle={props.singleArticle} />
     </Fragment>
   );

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
 import { articleActions } from '../stores/articleReducer';
 import Head from 'next/head';
 import Backdrop from '../components/Ui/Backdrop';
@@ -8,22 +9,28 @@ import MainLayout from '../components/Layouts/MainLayout';
 import Navbar from '../components/Header/Navbar';
 
 import axios from 'axios';
+import { authActions } from '../stores/authReducers';
 
 export default function Home(props) {
+  const router = useRouter();
   const dispatch = useDispatch();
+  const isLogged = useSelector((state) => state.auth.isLogged);
   const [show, setShow] = useState(false);
-  const showHandler = () => {
-    setShow((prev) => !prev);
-  };
+
   const data = props.articles.articles;
 
   useEffect(() => {
-    if (!data) {
-      dispatch(articleActions.pending());
-    } else {
-      dispatch(articleActions.success(data));
-    }
-  }, [data]);
+    dispatch(articleActions.success(data));
+    dispatch(authActions.actionDefault());
+  }, []);
+
+  if (isLogged) {
+    router.replace('/main');
+  }
+
+  const showHandler = () => {
+    setShow((prev) => !prev);
+  };
 
   return (
     <div>

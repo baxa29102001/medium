@@ -4,15 +4,12 @@ import FollowingLikes from './FollowingLikes';
 function OneArticle({ singleArticle }) {
   const { title, capture, _id, imgAuthor, duration, createdAt, author, story } =
     singleArticle.articles;
-  console.log(JSON.parse(story));
+
   const story2 = JSON.parse(story);
 
   return (
-    <div className='flex'>
-      <div className='w-96 flex items-center sticky top-3 left-5 '>
-        <FollowingLikes />
-      </div>
-      <div className='w-2/4 p-4'>
+    <div className='block md:flex'>
+      <div className='w-full lg:w-2/4 p-4'>
         <h1 className='text-4xl  font-extrabold p-4'>{title}</h1>
         <div className='flex justify-between'>
           <div className='flex items-center'>
@@ -41,6 +38,9 @@ function OneArticle({ singleArticle }) {
             );
           })}
         </div>
+      </div>
+      <div className='w-60 md:w-96 order-first flex items-center ml-5 md:ml-0 md:sticky lg:sticky top-3 left-5 '>
+        <FollowingLikes />
       </div>
     </div>
   );

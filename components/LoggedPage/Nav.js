@@ -6,15 +6,23 @@ import LoadingSpinner from '../Ui/LoadingSpinner';
 
 function Nav() {
   const { notify } = useSelector((state) => state.auth);
-  const img = notify && notify.data.user.imgAuthor;
   const [show, setShow] = useState(false);
-  const showHandler = () => {
-    setShow((prev) => !prev);
-  };
 
   if (!notify) {
     return <LoadingSpinner />;
   }
+
+  let img;
+  if (!notify.data.user) {
+    img = 'https://i.ya-webdesign.com/images/male-head-silhouette-png-2.png';
+  } else {
+    img = notify.data.user.imgAuthor;
+  }
+  //notify && notify.data.user.imgAuthor;
+  const showHandler = () => {
+    setShow((prev) => !prev);
+  };
+
   return (
     <div className='flex justify-between px-10 items-center'>
       <div className='flex items-center'>

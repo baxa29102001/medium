@@ -7,8 +7,8 @@ import { storage } from '../../utils/firebase/firebase';
 
 function SignUp(props) {
   const { notify } = useSelector((state) => state);
-
   const [image, setImage] = useState(null);
+  const [sideErr, setSideErr] = useState('');
   const emailRef = useRef();
   const passwordRef = useRef();
   const { sendRequest } = useAuth();
@@ -20,6 +20,7 @@ function SignUp(props) {
   const submitHandler = (e) => {
     e.preventDefault();
     if (!image) {
+      setSideErr('Iltimos rasmingizni ham kiriting  (:');
       return;
     }
     storage
@@ -79,6 +80,9 @@ function SignUp(props) {
             Yubormoq
           </button>
         </form>
+        {sideErr && (
+          <p className='text-white bg-red-400 py-2 px-4 mt-2'>{sideErr}</p>
+        )}
         <p className='text-lg mt-4 font-bold'>Ro'yxatdan o'tdingizmi</p>
         <button
           onClick={props.onSignUp}

@@ -3,11 +3,19 @@ import { useDispatch } from 'react-redux';
 import { authActions } from '../../stores/authReducers';
 
 import axios from 'axios';
+export function token() {
+  let data = null;
+  if (typeof document !== 'undefined') {
+    data = localStorage.getItem('token') || '';
+  }
+
+  return data;
+}
 
 export const useAuth = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const sendRequest = (url, obj) => {
+  const sendRequest = (url, obj, token) => {
     dispatch(
       authActions.login({
         data: '',
@@ -16,7 +24,7 @@ export const useAuth = () => {
       })
     );
     try {
-      axios.post(url, obj).then((res) => {
+      axios.post(url, obj, token).then((res) => {
         dispatch(
           authActions.login({
             data: res.data,

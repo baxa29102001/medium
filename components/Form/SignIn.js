@@ -1,7 +1,11 @@
 import React, { Fragment, useRef } from 'react';
 import { useAuth } from '../../utils/hooks/authApi';
+import { useSelector } from 'react-redux';
+import LoadingSpinner from '../Ui/LoadingSpinner';
+import Success from '../Ui/Success';
 
 function SignIn(props) {
+  const { notify } = useSelector((state) => state);
   const emailRef = useRef();
   const passwordRef = useRef();
   const { sendRequest: requestBackend } = useAuth();
@@ -16,6 +20,14 @@ function SignIn(props) {
 
     requestBackend('http://localhost:3000/api/login', obj);
   };
+
+  if (notify && notify.status === 'Pending') {
+    return <LoadingSpinner />;
+  }
+
+  if (notify && notify.status === 'Success') {
+    return <Success />;
+  }
   return (
     <Fragment>
       <h1 className='text-2xl font-extrabold mb-2'>Kirish</h1>
@@ -26,7 +38,7 @@ function SignIn(props) {
           ref={emailRef}
           type='text'
           className=' w-72 border-0 p-2 rounded-lg focus:outline-none focus:ring'
-          placeholder='Email Pochta'
+          placeholder='Ism Sharif'
         />
         <input
           ref={passwordRef}
