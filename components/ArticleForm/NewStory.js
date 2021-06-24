@@ -51,10 +51,7 @@ function NewStory({ form }) {
       story: arr,
     };
 
-    const res = await axios.post(
-      'http://localhost:3000/api/articles',
-      articleObj
-    );
+    const res = await axios.post('/api/articles', articleObj);
     console.log(res);
   };
 
