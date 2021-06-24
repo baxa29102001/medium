@@ -5,6 +5,7 @@ import { articleActions } from '../stores/articleReducer';
 import { useLogin } from '../utils/hooks/tokenRequest';
 import Redirect from '../components/Form/Redirect';
 import axios from 'axios';
+import { server } from '../config';
 
 function Story(props) {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ function Story(props) {
     dispatch(articleActions.success(data));
     const token = localStorage.getItem('token');
     if (token) {
-      tokenRequest('http://localhost:3000/api/login');
+      tokenRequest('/api/login');
     }
   }, []);
   if (!isLogged) {
@@ -33,7 +34,7 @@ function Story(props) {
 }
 
 export async function getServerSideProps() {
-  const { data } = await axios.get('http://localhost:3000/api/articles');
+  const { data } = await axios.get(`${server}/api/articles`);
 
   if (!data) {
     return {

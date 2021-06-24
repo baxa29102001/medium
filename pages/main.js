@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { articleActions } from '../stores/articleReducer';
 import Redirect from '../components/Form/Redirect';
 import { useLogin } from '../utils/hooks/tokenRequest';
+import { server } from '../config';
 
 import axios from 'axios';
 
@@ -16,7 +17,7 @@ const MainPage = (props) => {
     dispatch(articleActions.success(data));
     const token = localStorage.getItem('token');
     if (token) {
-      tokenRequest('http://localhost:3000/api/login');
+      tokenRequest('/api/login');
     }
   }, []);
 
@@ -36,7 +37,7 @@ const MainPage = (props) => {
 };
 
 export async function getServerSideProps() {
-  const { data } = await axios.get('http://localhost:3000/api/articles');
+  const { data } = await axios.get(`${server}/api/articles`);
 
   if (!data) {
     return {

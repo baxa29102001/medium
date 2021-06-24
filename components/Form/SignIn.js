@@ -18,7 +18,7 @@ function SignIn(props) {
       password: passwordRef.current.value,
     };
 
-    requestBackend('http://localhost:3000/api/login', obj);
+    requestBackend('/api/login', obj);
   };
 
   if (notify && notify.status === 'Pending') {

@@ -38,7 +38,7 @@ function SignUp(props) {
               imgAuthor: res,
             };
 
-            sendRequest('http://localhost:3000/api/auth', obj);
+            sendRequest('/api/auth', obj);
           });
       });
   };

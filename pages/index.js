@@ -7,8 +7,7 @@ import Backdrop from '../components/Ui/Backdrop';
 import HeaderLayout from '../components/Layouts/HeaderLayout';
 import MainLayout from '../components/Layouts/MainLayout';
 import Navbar from '../components/Header/Navbar';
-
-import axios from 'axios';
+import { server } from '../config';
 import { authActions } from '../stores/authReducers';
 
 export default function Home(props) {
@@ -48,7 +47,8 @@ export default function Home(props) {
 }
 
 export async function getServerSideProps() {
-  const { data } = await axios.get('http://localhost:3000/api/articles');
+  const res = await fetch(`${server}/api/articles`);
+  const data = await res.json();
 
   if (!data) {
     return {

@@ -4,6 +4,7 @@ import React, { Fragment } from 'react';
 import OneArticleLayout from '../../components/Layouts/OneArticleLayout';
 import { useLogin } from '../../utils/hooks/tokenRequest';
 import Redirect from '../../components/Form/Redirect';
+import { server } from '../../config';
 import axios from 'axios';
 
 function OneArticle(props) {
@@ -12,7 +13,7 @@ function OneArticle(props) {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      tokenRequest('http://localhost:3000/api/login');
+      tokenRequest('/api/login');
     }
   }, []);
   const singleArticle = props.article;
@@ -32,7 +33,7 @@ function OneArticle(props) {
 }
 
 export async function getStaticPaths() {
-  const { data } = await axios.get('http://localhost:3000/api/articles');
+  const { data } = await axios.get(`${server}/api/articles`);
   const paths = data.articles.map((post) => ({
     params: { articleId: post._id },
   }));
@@ -43,9 +44,7 @@ export async function getStaticPaths() {
 }
 export async function getStaticProps(context) {
   const id = context.params.articleId;
-  const { data } = await axios.get(
-    `http://localhost:3000/api/singleArticle?id=${id}`
-  );
+  const { data } = await axios.get(`${server}/api/singleArticle?id=${id}`);
 
   if (!data) {
     return {

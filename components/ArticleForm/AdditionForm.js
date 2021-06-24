@@ -17,7 +17,6 @@ function AdditionForm() {
   const { title, capture, duration } = dataForm;
 
   const userImg = auth.notify && auth.notify.data.user;
-  console.log(userImg);
 
   const sendForm = () => {
     const articleObj = {
