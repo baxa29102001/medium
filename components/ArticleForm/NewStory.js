@@ -1,6 +1,7 @@
 import React, { Fragment, useRef, useState } from 'react';
 import mediumDraftExporter from 'medium-draft/lib/exporter';
 import mediumDraftImporter from 'medium-draft/lib/importer';
+import { useRoute } from 'next/router';
 import { convertToRaw } from 'draft-js';
 import { server } from '../../config/index';
 import axios from 'axios';
@@ -32,6 +33,7 @@ const blockButtons = [
 let ServerArr;
 
 function NewStory({ form }) {
+  const route = useRouter();
   const refsEditor = useRef();
   const [editorState, setData] = useState(createEditorState());
 
@@ -52,11 +54,12 @@ function NewStory({ form }) {
       story: arr,
     };
 
-    const res = await axios.post(
+    await axios.post(
       `https://mediumblogdummy.herokuapp.com/api/articles`,
       articleObj
     );
-    console.log(res);
+
+    route.push('/main');
   };
 
   return (
