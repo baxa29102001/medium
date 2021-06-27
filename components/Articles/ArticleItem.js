@@ -28,7 +28,7 @@ function ArticleItem(props) {
         <div className='flex items-center'>
           <p className='text-sm font-light text-gray-400 mr-3'>{createdAt}</p>
           <p className='text-sm font-light text-gray-400 mr-2'>
-            {duration} vaqt
+            {duration} min vaqt
           </p>
           <i className='ri-star-s-fill text-gray-400'></i>
         </div>

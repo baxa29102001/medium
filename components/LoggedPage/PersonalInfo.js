@@ -1,10 +1,19 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { authActions } from '../../stores/authReducers';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 function PersonalInfo(props) {
+  const router = useRouter();
+  const dispacth = useDispatch();
   const { notify } = useSelector((state) => state.auth);
   const { imgAuthor, userName } = notify.data.user;
+
+  const exitHandler = () => {
+    dispacth(authActions.logout());
+    router.push('/');
+  };
   return (
     <div className='w-40  shadow-xl bg-white rounded-md border border-gray-300  absolute top-16 right-10'>
       <div className='p-3 flex  items-center'>
@@ -16,7 +25,9 @@ function PersonalInfo(props) {
           <Link href='/new-story'>Hikoya yozish</Link>
         </li>
         <li className='text-base font-semibold text-center mt-2'>
-          <button className='border-0 bg-gray-600 rounded-md focus:outline-none text-white px-5 py-1'>
+          <button
+            onClick={exitHandler}
+            className='border-0 bg-gray-600 rounded-md focus:outline-none text-white px-5 py-1'>
             Chiqish
           </button>
         </li>

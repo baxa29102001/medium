@@ -5,8 +5,8 @@ import img from 'next/image';
 function MainHeader() {
   return (
     <div className='grid grid-cols-2 bg-yellow-400 gap-6 border-b border-black'>
-      <div className='p-6'>
-        <h1 className='md:text-4xl text-2xl font-extrabold sm:text-3xl mb-9 lg:text-6xl'>
+      <div className='w-screen md:w-auto p-6'>
+        <h1 className='text-2xl md:text-4xl font-extrabold  mb-9 lg:text-6xl'>
           Eng yaxshi g'oyalarni shu yerdan topasiz
         </h1>
         <p className='lg:text-3xl sm:text-sm md:text-lg mb-9'>
@@ -17,10 +17,10 @@ function MainHeader() {
           <Link href='/login'>Login</Link>
         </p>
       </div>
-      <div className='p-6 grid justify-center'>
+      <div className='p-6 hidden md:grid justify-center'>
         <img
           src='/bg.png'
-          className='md:w-60 md:h-60 rounded-lg sm:w-44 sm:h-10'
+          className='w-44 h-56 none md:w-60 md:h-60 rounded-lg '
         />
       </div>
     </div>

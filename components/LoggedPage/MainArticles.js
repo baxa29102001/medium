@@ -18,6 +18,8 @@ function MainArticles() {
   for (let i = 0; i < leng; i++) {
     arr.push(articles[i]);
   }
+
+  console.log(arr.reverse());
   return (
     <div className='md:block lg:flex mt-9 border-b border-gray-500'>
       <div className='md:flex lg:flex md:w-full lg:w-3/4 border-b md:border-b lg:border-b-0 lg:border-r  md:border-r-0 border-gray-400'>
@@ -29,7 +31,7 @@ function MainArticles() {
             />
           </div>
           <div className='ml-6 md:m-0 lg:0'>
-            <ArticleItem item={dummy_Data[0]} />
+            <ArticleItem item={arr[0]} />
           </div>
         </ul>
         <ArticleList articles={arr} />
