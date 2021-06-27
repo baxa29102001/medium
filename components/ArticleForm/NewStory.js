@@ -1,7 +1,7 @@
 import React, { Fragment, useRef, useState } from 'react';
 import mediumDraftExporter from 'medium-draft/lib/exporter';
 import mediumDraftImporter from 'medium-draft/lib/importer';
-import { useRoute } from 'next/router';
+import { useRouter } from 'next/router';
 import { convertToRaw } from 'draft-js';
 import { server } from '../../config/index';
 import axios from 'axios';
