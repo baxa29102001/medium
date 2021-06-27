@@ -17,7 +17,7 @@ const MainPage = (props) => {
     dispatch(articleActions.success(data));
     const token = localStorage.getItem('token');
     if (token) {
-      tokenRequest(`${server}/api/login`);
+      tokenRequest(`https://mediumblogdummy.herokuapp.com/api/login`);
     }
   }, []);
 
@@ -37,7 +37,8 @@ const MainPage = (props) => {
 };
 
 export async function getServerSideProps() {
-  const { data } = await axios.get(`${server}/api/articles`);
+  const res = await fetch(`https://mediumblogdummy.herokuapp.com/api/articles`);
+  const data = await res.json();
 
   if (!data) {
     return {

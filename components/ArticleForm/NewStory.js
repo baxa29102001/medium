@@ -52,7 +52,10 @@ function NewStory({ form }) {
       story: arr,
     };
 
-    const res = await axios.post(`${server}/api/articles`, articleObj);
+    const res = await axios.post(
+      `https://mediumblogdummy.herokuapp.com/api/articles`,
+      articleObj
+    );
     console.log(res);
   };
 

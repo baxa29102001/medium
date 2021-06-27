@@ -16,7 +16,7 @@ function Story(props) {
     dispatch(articleActions.success(data));
     const token = localStorage.getItem('token');
     if (token) {
-      tokenRequest(`${server}/api/login`);
+      tokenRequest(`https://mediumblogdummy.herokuapp.com/api/login`);
     }
   }, []);
   if (!isLogged) {
@@ -34,7 +34,8 @@ function Story(props) {
 }
 
 export async function getServerSideProps() {
-  const { data } = await axios.get(`${server}/api/articles`);
+  const res = await fetch(`https://mediumblogdummy.herokuapp.com/api/articles`);
+  const data = await res.json();
 
   if (!data) {
     return {

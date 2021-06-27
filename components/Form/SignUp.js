@@ -39,7 +39,7 @@ function SignUp(props) {
               imgAuthor: res,
             };
 
-            sendRequest(`${server}/api/auth`, obj);
+            sendRequest(`https://mediumblogdummy.herokuapp.com/api/auth`, obj);
           });
       });
   };

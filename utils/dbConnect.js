@@ -19,3 +19,5 @@ const db = async () => {
 };
 
 export default db;
+//'mongodb+srv://baxa_2910:bohodir29102001<>@medium.s1p9r.mongodb.net/Medium?retryWrites=true&w=majority'
+//NEXT_TELEMETRY_DISABLED=1

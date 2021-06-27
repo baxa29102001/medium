@@ -4,8 +4,6 @@ import React, { Fragment } from 'react';
 import OneArticleLayout from '../../components/Layouts/OneArticleLayout';
 import { useLogin } from '../../utils/hooks/tokenRequest';
 import Redirect from '../../components/Form/Redirect';
-import { server } from '../../config';
-import axios from 'axios';
 
 function OneArticle(props) {
   const { tokenRequest } = useLogin();
@@ -13,7 +11,7 @@ function OneArticle(props) {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      tokenRequest(`${server}/api/login`);
+      tokenRequest(`https://mediumblogdummy.herokuapp.com/api/login`);
     }
   }, []);
   const singleArticle = props.article;
@@ -33,7 +31,8 @@ function OneArticle(props) {
 }
 
 export async function getStaticPaths() {
-  const { data } = await axios.get(`${server}/api/articles`);
+  const res = await fetch(`https://mediumblogdummy.herokuapp.com/api/articles`);
+  const data = await res.json();
   const paths = data.articles.map((post) => ({
     params: { articleId: post._id },
   }));
@@ -44,7 +43,10 @@ export async function getStaticPaths() {
 }
 export async function getStaticProps(context) {
   const id = context.params.articleId;
-  const { data } = await axios.get(`${server}/api/singleArticle?id=${id}`);
+  const res = await fetch(
+    `https://mediumblogdummy.herokuapp.com/api/singleArticle?id=${id}`
+  );
+  const data = await res.json();
 
   if (!data) {
     return {

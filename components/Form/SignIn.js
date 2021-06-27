@@ -3,7 +3,7 @@ import { useAuth } from '../../utils/hooks/authApi';
 import { useSelector } from 'react-redux';
 import LoadingSpinner from '../Ui/LoadingSpinner';
 import Success from '../Ui/Success';
-import { server } from '../../config';
+import axios from 'axios';
 
 function SignIn(props) {
   const { notify } = useSelector((state) => state);
@@ -19,7 +19,7 @@ function SignIn(props) {
       password: passwordRef.current.value,
     };
 
-    requestBackend(`${server}/api/login`, obj);
+    requestBackend(`https://mediumblogdummy.herokuapp.com/api/login`, obj);
   };
 
   if (notify && notify.status === 'Pending') {

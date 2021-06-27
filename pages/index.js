@@ -7,8 +7,9 @@ import Backdrop from '../components/Ui/Backdrop';
 import HeaderLayout from '../components/Layouts/HeaderLayout';
 import MainLayout from '../components/Layouts/MainLayout';
 import Navbar from '../components/Header/Navbar';
-import { server } from '../config';
+
 import { authActions } from '../stores/authReducers';
+import axios from 'axios';
 
 export default function Home(props) {
   const router = useRouter();
@@ -47,7 +48,7 @@ export default function Home(props) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch(`${server}/api/articles`);
+  const res = await fetch(`https://mediumblogdummy.herokuapp.com/api/articles`);
   const data = await res.json();
 
   if (!data) {
