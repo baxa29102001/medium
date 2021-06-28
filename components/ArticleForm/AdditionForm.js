@@ -10,6 +10,7 @@ function AdditionForm() {
     capture: '',
     duration: '',
   });
+
   if (!auth.notify) {
     return <LoadingSpinner />;
   }
@@ -30,6 +31,7 @@ function AdditionForm() {
   };
 
   const changeHandler = (e) => {
+    setShowErr(!showErr);
     setDataForm({
       ...dataForm,
       [e.target.name]: e.target.value,
@@ -48,7 +50,7 @@ function AdditionForm() {
           id='title'
           value={title}
           onChange={changeHandler}
-          className='w-2/4 border rounded-md border-gray-400 px-3 py-1 focus:outline-none'
+          className='w-full md:w-3/4 lg:w-2/4 border rounded-md border-gray-400 px-3 py-1 focus:outline-none'
         />
         <label htmlFor='desc' className='block text-lg font-extrabold'>
           Maqola tavsifi
@@ -58,7 +60,7 @@ function AdditionForm() {
           name='capture'
           onChange={changeHandler}
           id='desc'
-          className='block w-2/4 h-32 resize-none border border-gray-400 rounded-md  mt-2 focus:outline-none p-2'></textarea>
+          className='block w-full md:w-3/4 lg:w-2/4 h-32 resize-none border border-gray-400 rounded-md  mt-2 focus:outline-none p-2'></textarea>
         <label htmlFor='min' className='text-lg block font-extrabold mt-3'>
           O'qilish vaqti (min)
         </label>
@@ -69,7 +71,7 @@ function AdditionForm() {
           id='min'
           type='number'
           min='0'
-          className='block w-2/4 border rounded-md border-gray-400 px-3 py-1 focus:outline-none '
+          className='block  w-full md:w-3/4 lg:w-2/4  border rounded-md border-gray-400 px-3 py-1 focus:outline-none '
         />
       </form>
       <NewStory form={sendForm} />

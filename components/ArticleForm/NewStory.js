@@ -3,7 +3,7 @@ import mediumDraftExporter from 'medium-draft/lib/exporter';
 import mediumDraftImporter from 'medium-draft/lib/importer';
 import { useRouter } from 'next/router';
 import { convertToRaw } from 'draft-js';
-import { server } from '../../config/index';
+import ErrorModal from '../Ui/ErrorModal';
 import axios from 'axios';
 import dynamic from 'next/dynamic';
 const Editor = dynamic(
@@ -36,6 +36,7 @@ function NewStory({ form }) {
   const route = useRouter();
   const refsEditor = useRef();
   const [editorState, setData] = useState(createEditorState());
+  const [showErr, setShowErr] = useState('');
 
   const onChange = (editorState) => {
     setData(editorState);
@@ -53,6 +54,13 @@ function NewStory({ form }) {
       ...obj,
       story: arr,
     };
+    const { title, duration, capture } = obj;
+    const { story } = articleObj;
+
+    if (!title || !duration || !capture || story.length === 0) {
+      setShowErr('Iltimos bosh orinlarni barchasini toldiring');
+      return;
+    }
 
     await axios.post(
       `https://mediumblogdummy.herokuapp.com/api/articles`,
@@ -62,8 +70,13 @@ function NewStory({ form }) {
     route.push('/main');
   };
 
+  const closeModal = () => {
+    setShowErr('');
+  };
+
   return (
     <Fragment>
+      {showErr && <ErrorModal msg={showErr} closeModal={closeModal} />}
       <h1 className='font-extrabold text-lg ml-14 mt-2'>Maqolani Yozish</h1>
       <div className='ml-10 p-2'>
         <Editor

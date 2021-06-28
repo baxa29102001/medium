@@ -21,7 +21,6 @@ export const useLogin = () => {
           },
         })
         .then((res) => {
-          console.log(res.data);
           dispatch(
             authActions.tokenRequests({
               data: res.data,

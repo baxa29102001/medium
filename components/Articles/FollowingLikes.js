@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function FollowingLikes(props) {
+function FollowingLikes({ author }) {
   const [following, setFollowing] = useState(false);
 
   const followHandler = () => {
@@ -9,7 +9,7 @@ function FollowingLikes(props) {
   return (
     <div>
       <div className='border-b border-gray-400 p-3'>
-        <h1 className='text-xl font-bold mb-3'>Khumoyun Inoyatov</h1>
+        <h1 className='text-xl font-bold mb-3'>{author}</h1>
         <button
           onClick={followHandler}
           className={`border-2 border-green-500 py-2 px-3 ${

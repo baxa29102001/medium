@@ -68,7 +68,7 @@ function SignUp(props) {
             ref={passwordRef}
             type='text'
             className='mt-2 w-72 border-0 p-2 rounded-lg focus:outline-none focus:ring'
-            placeholder='Email pochta'
+            placeholder='Password'
           />
           <input
             type='file'
