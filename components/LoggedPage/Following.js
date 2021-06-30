@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import LoadingSpinner from '../Ui/LoadingSpinner';
 
 const Dummy_users = [
   {
@@ -27,21 +29,30 @@ const Dummy_users = [
 ];
 
 function Following() {
+  const auth = useSelector((state) => state.auth.notify.data);
+  if (!auth) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <div className='p-4 border-0 md:border-r lg:border-0 border-gray-400 ml-4'>
       <h1 className='text-lg font-extrabold mb-3'>
         Siz obuna bo'lgan insonlar{' '}
       </h1>
       <ul className='grid grid-cols-3'>
-        {Dummy_users.map((item) => (
-          <li className='md:py-2 md:px-0' key={item.name}>
-            <img
-              src={item.imgAuthor}
-              className='w-12 h-12 md:w-14 md:h-14 ml-3 md:ml-2 rounded-full'
-            />
-            <p className='text-gray-500 text-sm md:text-sm'>{item.name}</p>
-          </li>
-        ))}
+        {auth.user.following.length > 0 ? (
+          auth.user.following.map((item) => (
+            <li className='md:py-2 md:px-0' key={item.author}>
+              <img
+                src={item.imgAuthor}
+                className='w-12 h-12 md:w-14 md:h-14 ml-3 md:ml-2 rounded-full'
+              />
+              <p className='text-gray-500 text-sm md:text-sm'>{item.author}</p>
+            </li>
+          ))
+        ) : (
+          <p>Siz xali hech kimga obuna bolmadingiz</p>
+        )}
       </ul>
     </div>
   );

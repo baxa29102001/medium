@@ -25,13 +25,13 @@ function AdditionForm() {
       author: userImg.userName,
       createdAt: 'June 18',
       imgAuthor: userImg.imgAuthor,
+      authorId: userImg._id,
     };
 
     return articleObj;
   };
 
   const changeHandler = (e) => {
-    setShowErr(!showErr);
     setDataForm({
       ...dataForm,
       [e.target.name]: e.target.value,

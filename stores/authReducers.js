@@ -19,9 +19,11 @@ const authSlice = createSlice({
     },
     login: (state, action) => {
       const token = action.payload.data.token;
-      localStorage.setItem('token', token);
-      state.isLogged = !!token;
-      state.token = token;
+      if (token) {
+        localStorage.setItem('token', token);
+        state.isLogged = !!token;
+        state.token = token;
+      }
       state.notify = {
         status: action.payload.status,
         data: action.payload.data,

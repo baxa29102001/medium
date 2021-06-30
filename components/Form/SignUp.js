@@ -7,7 +7,7 @@ import { storage } from '../../utils/firebase/firebase';
 import { server } from '../../config';
 
 function SignUp(props) {
-  const { notify } = useSelector((state) => state);
+  const { notify } = useSelector((state) => state.auth);
   const [image, setImage] = useState(null);
   const [sideErr, setSideErr] = useState('');
   const emailRef = useRef();

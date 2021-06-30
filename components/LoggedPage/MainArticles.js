@@ -31,7 +31,7 @@ function MainArticles() {
             />
           </div>
           <div className='ml-6 md:m-0 lg:0'>
-            <ArticleItem item={arr[0]} />
+            <ArticleItem item={arr2[0]} />
           </div>
         </ul>
         <ArticleList articles={arr2} />

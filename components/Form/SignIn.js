@@ -1,12 +1,12 @@
-import React, { Fragment, useRef } from 'react';
+import React, { Fragment, useRef, useState, useEffect } from 'react';
 import { useAuth } from '../../utils/hooks/authApi';
 import { useSelector } from 'react-redux';
 import LoadingSpinner from '../Ui/LoadingSpinner';
 import Success from '../Ui/Success';
-import axios from 'axios';
 
 function SignIn(props) {
-  const { notify } = useSelector((state) => state);
+  const { notify } = useSelector((state) => state.auth);
+  const [errShow, setErrShow] = useState('');
   const emailRef = useRef();
   const passwordRef = useRef();
   const { sendRequest: requestBackend } = useAuth();
@@ -22,6 +22,12 @@ function SignIn(props) {
     requestBackend(`https://mediumblogdummy.herokuapp.com/api/login`, obj);
   };
 
+  useEffect(() => {
+    if (notify && notify.status === 'Error') {
+      setErrShow('Bunday user topilmadi');
+    }
+  }, [notify]);
+
   if (notify && notify.status === 'Pending') {
     return <LoadingSpinner />;
   }
@@ -32,6 +38,12 @@ function SignIn(props) {
   return (
     <Fragment>
       <h1 className='text-2xl font-extrabold mb-2'>Kirish</h1>
+      {errShow && (
+        <p className='py-2 px-3 bg-red-400 rounded-md text-white text-xl mb-2'>
+          {errShow}
+        </p>
+      )}
+
       <form
         className='flex flex-col  items-center justify-center'
         onSubmit={sendRequest}>
@@ -53,6 +65,7 @@ function SignIn(props) {
           Yubormoq
         </button>
       </form>
+
       <p className='text-lg mt-4 font-bold'>Sizning akkuntingiz yo'qmi</p>
       <button
         onClick={props.onSignIn}

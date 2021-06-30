@@ -23,8 +23,10 @@ export const useAuth = () => {
         error: null,
       })
     );
-    try {
-      axios.post(url, obj, token).then((res) => {
+
+    axios
+      .post(url, obj, token)
+      .then((res) => {
         dispatch(
           authActions.login({
             data: res.data,
@@ -34,16 +36,16 @@ export const useAuth = () => {
         );
 
         router.push('/main');
+      })
+      .catch((error) => {
+        dispatch(
+          authActions.login({
+            data: '',
+            status: 'Error',
+            error: error.message,
+          })
+        );
       });
-    } catch (error) {
-      dispatch(
-        authActions.login({
-          data: '',
-          status: 'Error',
-          error: error,
-        })
-      );
-    }
   };
 
   return {

@@ -13,7 +13,7 @@ function Nav() {
   }
 
   let img;
-  if (!notify.data.user) {
+  if (!notify.data) {
     img = 'https://i.ya-webdesign.com/images/male-head-silhouette-png-2.png';
   } else {
     img = notify.data.user.imgAuthor;

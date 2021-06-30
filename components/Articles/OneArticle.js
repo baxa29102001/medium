@@ -40,7 +40,7 @@ function OneArticle({ singleArticle }) {
         </div>
       </div>
       <div className='w-60 md:w-96 order-first flex items-center ml-5 md:ml-0 md:sticky lg:sticky top-3 left-5 '>
-        <FollowingLikes author={author} />
+        <FollowingLikes items={singleArticle.articles} />
       </div>
     </div>
   );
