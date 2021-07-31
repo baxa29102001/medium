@@ -43,6 +43,16 @@ export default function Home(props) {
       <Navbar onShow={showHandler} />
       <HeaderLayout />
       <MainLayout />
+      <div className='grid-cols-2'>
+        <div className='w-1/4 flex'>
+          <img src='https://darinka.design/median/wp-content/uploads/Logo.png'></img>
+          <h2 className='text-base'>Median</h2>
+        </div>
+        <div className='w-4/5'>
+          <input type='text' placeholder='Search' />
+          <button className=''>Kirish</button>
+        </div>
+      </div>
     </div>
   );
 }
